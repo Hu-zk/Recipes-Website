@@ -83,6 +83,21 @@ class RecipeController extends Controller
         }
     }
 
+    public function display()
+    {
+        try {
+            $recipes = Recipe::all();
+
+            if ($recipes->isEmpty()) {
+                return response()->json(['message' => 'No recipes found for the given search criteria.'], 404);
+            }
+
+            return response()->json(['recipes' => $recipes]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred while processing the request.'], 500);
+        }
+    }
+
     public function toggleLike($recipeId)
     {
         $user = Auth::user();
