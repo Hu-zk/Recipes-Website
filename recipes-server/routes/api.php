@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\ShoppingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,11 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
     Route::post('recipes/comment', [RecipeController::class, 'commentRecipe']);
     Route::post('recipes/{recipeId}/toggle-like', [RecipeController::class, 'toggleLike']);
     Route::get('recipes/{recipe}/share-url', [RecipeController::class, 'getRecipeShareUrl']);
+
+    Route::post('shopping-lists/add/{recipeId}', [ShoppingController::class, 'addToShoppingList']);
+    Route::get('shopping-lists', [ShoppingController::class, 'getShoppingList']);
+
+
 
     Route::post("logout", [AuthController::class, "logout"]);
     Route::post("refresh", [AuthController::class, "refresh"]);

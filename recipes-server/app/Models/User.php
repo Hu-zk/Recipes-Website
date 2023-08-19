@@ -48,6 +48,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Comment::class);
     }
 
+    public function shoppingList()
+    {
+        return $this->belongsToMany(Recipe::class, 'shopping_lists');
+    }
+
     public function shoppingLists()
     {
         return $this->hasMany(ShoppingList::class);
