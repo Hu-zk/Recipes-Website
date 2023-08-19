@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ingredient;
+use App\Models\Like;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -79,5 +80,29 @@ class RecipeController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred while processing the request.'], 500);
         }
+    }
+
+    public function toggleLike($recipeId)
+    {
+        $user = Auth::user();
+        $recipe = Recipe::find($recipeId);
+        $likeExists = $recipe->likes()->where('user_id', $user->id)->exists();
+
+        if ($likeExists) {
+            $recipe->likes()->where('user_id', $user->id)->delete();
+            $message = 'recipe has been disliked successfully';
+        } else {
+            $like = new Like(['user_id' => $user->id]);
+            $recipe->likes()->save($like);
+            $message = 'recipe has been liked successfully';
+        }
+
+        $likeCount = $recipe->likes()->count();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => $message,
+            'like_count' => $likeCount,
+        ]);
     }
 }
