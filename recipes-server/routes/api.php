@@ -14,7 +14,8 @@ Route::group(['prefix' => 'guest'], function () {
 
 Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
 
-    Route::post("createRecipe", [RecipeController::class, "createRecipe"]);
+    Route::post("recipe/create", [RecipeController::class, "createRecipe"]);
+    Route::get('recipe/search/{searchItem}', [RecipeController::class, 'search']);
 
     Route::post("logout", [AuthController::class, "logout"]);
     Route::post("refresh", [AuthController::class, "refresh"]);

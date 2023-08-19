@@ -60,4 +60,24 @@ class RecipeController extends Controller
             ], 500);
         }
     }
+
+    public function search($searchItem)
+    {
+        try {
+            $recipes = Recipe::where('name', 'LIKE', "%$searchItem%")
+                ->orWhere('cuisine', 'LIKE', "%$searchItem%")
+                ->orWhereHas('ingredients', function ($query) use ($searchItem) {
+                    $query->where('name', 'LIKE', "%$searchItem%");
+                })
+                ->get();
+
+            if ($recipes->isEmpty()) {
+                return response()->json(['message' => 'No recipes found for the given search criteria.'], 404);
+            }
+
+            return response()->json(['recipes' => $recipes]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred while processing the request.'], 500);
+        }
+    }
 }
