@@ -16,7 +16,7 @@ class RecipeController extends Controller
             $request->validate([
                 'name' => 'required|string',
                 'cuisine' => 'required|string',
-                'image' => 'required|string|max:2048',
+                'image' => 'required|string',
                 'ingredients' => 'required|array',
             ]);
 
