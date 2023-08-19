@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Ingredient;
 use App\Models\Like;
 use App\Models\Recipe;
@@ -104,5 +105,19 @@ class RecipeController extends Controller
             'message' => $message,
             'like_count' => $likeCount,
         ]);
+    }
+
+    public function commentRecipe(Request $request)
+    {
+        $user = auth()->user();
+        $comment = new Comment([
+            'user_id' => $user->id,
+            'recipe_id' => $request->recipe_id,
+            'comment' => $request->comment,
+        ]);
+
+        $comment->save();
+
+        return response()->json(['message' => 'Comment added successfully']);
     }
 }

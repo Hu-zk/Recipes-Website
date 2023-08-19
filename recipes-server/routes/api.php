@@ -17,8 +17,8 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
     Route::post("recipes/create", [RecipeController::class, "createRecipe"]);
     Route::get('recipes/search/{searchItem}', [RecipeController::class, 'search']);
 
+    Route::post('recipes/comment', [RecipeController::class, 'commentRecipe']);
     Route::post('recipes/{recipeId}/toggle-like', [RecipeController::class, 'toggleLike']);
-    Route::post('recipes/{recipe}/comment', [RecipeController::class, 'commentRecipe']);
     Route::get('recipes/{recipe}/share-url', [RecipeController::class, 'getRecipeShareUrl']);
 
     Route::post("logout", [AuthController::class, "logout"]);
