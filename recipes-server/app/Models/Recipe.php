@@ -19,6 +19,11 @@ class Recipe extends Model
         return $this->hasMany(Like::class);
     }
 
+    public function getLikesCountAttribute()
+    {
+        return $this->likes->count();
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);

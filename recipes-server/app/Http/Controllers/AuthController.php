@@ -11,11 +11,11 @@ use Illuminate\Validation\ValidationException;
 class AuthController extends Controller
 {
 
-    public function unautharized()
+    public function unauthorized()
     {
         return response()->json([
             'status' => 'Failed',
-            'message' => 'unautharized',
+            'message' => 'unauthorized',
         ]);
     }
 
