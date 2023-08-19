@@ -28,4 +28,9 @@ class Recipe extends Model
     {
         return $this->hasMany(CalendarEvent::class);
     }
+
+    public function ingredients()
+    {
+        return $this->belongsToMany(Ingredient::class, 'ingredient_recipe');
+    }
 }

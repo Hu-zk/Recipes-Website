@@ -16,13 +16,25 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('ingredients', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+        });
+
         Schema::create('recipes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('name');
             $table->string('cuisine');
-            $table->json('ingredients');
-            $table->json('images');
+            $table->string('images');
+            $table->timestamps();
+        });
+
+        Schema::create('ingredient_recipe', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('recipe_id')->constrained('recipes')->onDelete('cascade');
+            $table->foreignId('ingredient_id')->constrained('ingredients')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -31,5 +43,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('users');
         Schema::dropIfExists('recipes');
+        Schema::dropIfExists('ingredients');
+        Schema::dropIfExists('ingredient_recipe');
     }
 };
