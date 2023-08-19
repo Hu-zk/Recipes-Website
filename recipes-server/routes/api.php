@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\ShoppingController;
 use Illuminate\Http\Request;
@@ -25,7 +26,8 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
     Route::post('shopping-lists/add/{recipeId}', [ShoppingController::class, 'addToShoppingList']);
     Route::get('shopping-lists', [ShoppingController::class, 'getShoppingList']);
 
-
+    Route::post('calendar/events', [CalendarController::class, 'planMeal']);
+    Route::get('calendar/events/{dayOfWeek}', [CalendarController::class, 'getPlannedMeals']);
 
     Route::post("logout", [AuthController::class, "logout"]);
     Route::post("refresh", [AuthController::class, "refresh"]);

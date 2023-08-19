@@ -9,6 +9,14 @@ class CalendarEvent extends Model
 {
     use HasFactory;
 
+    protected $table = 'calendar_events';
+
+    protected $fillable = [
+        'user_id',
+        'recipe_id',
+        'day_of_week',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

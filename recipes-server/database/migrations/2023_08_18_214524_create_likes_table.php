@@ -27,7 +27,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('recipe_id')->constrained('recipes')->onDelete('cascade');
-            $table->date('date');
+            $table->integer('day_of_week');
             $table->timestamps();
         });
 
