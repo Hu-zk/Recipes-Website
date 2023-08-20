@@ -66,7 +66,7 @@ function Register({onToggle}) {
                         <div className="label-input">
                             <label htmlFor="check-password">Confirm</label>
                             <input id="check-password" name="check-password" type="password" required placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value) }/>
-                        </div>
+                        </div> <br />
 
                     <button className='black-button' type="submit" onClick={handleUserCreation}>Create</button>
                 </form>

@@ -3,30 +3,38 @@ import { sendRequest } from "../../../core/config/request";
 import { requestMethods } from "../../../core/enums/requestMethods";
 import { localStorageAction } from "../../../core/config/localstorage";
 import "./style.css";
+import { useNavigate } from "react-router-dom";
 
 function Login({onToggle}) {
-  // const navigation = useNavigate();
+  const navigation = useNavigate();
 
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async () => {
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    localStorage.clear();
+
+
     try {
       const response = await sendRequest({
         method: requestMethods.POST,
         route: "/guest/login",
         body:{
           email,
-          password
+          password,
         }
       });
+      console.log(response)
+      const data = response.user;
+      const token = response.user.token;
 
-      localStorageAction("access_token", response.data.token);
-
-      // navigation("/landing");
+      localStorageAction("access_token", token);
+      localStorage.setItem("userData", JSON.stringify(data));
+      navigation("/landing");
     } catch (error) {
-      console.error('failed:', error);
+      console.error('Login failed:', error);
     }
   };
 
@@ -48,9 +56,9 @@ function Login({onToggle}) {
                 <div className="label-input">
                     <label htmlFor="password">Password </label>
                     <input id="password" name="password" type="password" required placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                </div>
+                </div> <br />
 
-            <button className='black-button' type="submit" onClick={handleLogin}>Create</button>
+            <button className='black-button' type="submit" onClick={handleLogin}>Login</button>
         </form>
 
 

@@ -8,7 +8,7 @@ const Authentication = () => {
   const [login, setLogin] = useState(true);
 
   return (
-    <div className="flex center page">
+    <div className="create-page-container">
       {login ? (
         <Login onToggle={() => setLogin(false)} />
       ) : (
