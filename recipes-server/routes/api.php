@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\ShoppingController;
 use Illuminate\Http\Request;
@@ -17,6 +18,8 @@ Route::group(['prefix' => 'guest'], function () {
 Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
 
     Route::get('recipes/display', [RecipeController::class, 'display']);
+    Route::get('ingredientss/display', [IngredientController::class, 'display']);
+
 
     Route::post("recipes/create", [RecipeController::class, "createRecipe"]);
     Route::get('recipes/search/{searchItem}', [RecipeController::class, 'search']);
