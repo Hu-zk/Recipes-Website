@@ -32,7 +32,7 @@ function Login({onToggle}) {
 
       localStorageAction("access_token", token);
       localStorage.setItem("userData", JSON.stringify(data));
-      navigation("/landing");
+      navigation("/user");
     } catch (error) {
       console.error('Login failed:', error);
     }
