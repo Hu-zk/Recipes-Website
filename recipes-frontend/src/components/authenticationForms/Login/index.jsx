@@ -11,10 +11,17 @@ function Login({onToggle}) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState('');
+
 
   const handleLogin = async (event) => {
     event.preventDefault();
     localStorage.clear();
+
+    if ( !password || !email) {
+      setError('All fields are required');
+      return;
+  }
 
 
     try {
@@ -56,7 +63,10 @@ function Login({onToggle}) {
                 <div className="label-input">
                     <label htmlFor="password">Password </label>
                     <input id="password" name="password" type="password" required placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                </div> <br />
+                </div>
+
+                {error && <p className="error-message">{error}</p>}
+
 
             <button className='black-button' type="submit" onClick={handleLogin}>Login</button>
         </form>

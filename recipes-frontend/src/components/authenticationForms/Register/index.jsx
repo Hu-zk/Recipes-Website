@@ -10,9 +10,16 @@ function Register({onToggle}) {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [name, setName] = useState('');
+    const [error, setError] = useState('');
+
 
     const handleUserCreation = async (event) => {
         event.preventDefault();
+
+        if (!name || !confirmPassword || !password || !email) {
+            setError('All fields are required');
+            return;
+        }
 
         try {
             if (password === confirmPassword) {
@@ -66,7 +73,10 @@ function Register({onToggle}) {
                         <div className="label-input">
                             <label htmlFor="check-password">Confirm</label>
                             <input id="check-password" name="check-password" type="password" required placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value) }/>
-                        </div> <br />
+                        </div> 
+
+                        {error && <p className="error-message">{error}</p>}
+
 
                     <button className='black-button' type="submit" onClick={handleUserCreation}>Create</button>
                 </form>
