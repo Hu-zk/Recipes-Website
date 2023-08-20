@@ -2,7 +2,8 @@ import React from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
 import './style.css'
 
-function SideMenu({setCreateVisible, isCreateVisible,setSearchVisible, isSearchVisible}) {
+// function SideMenu({setCreateVisible, isCreateVisible,setSearchVisible, isSearchVisible}) {
+function SideMenu() {
     const navigation = useNavigate();
 
 
@@ -37,7 +38,8 @@ function SideMenu({setCreateVisible, isCreateVisible,setSearchVisible, isSearchV
                 </NavLink>
 
                 <NavLink style={navActive} end to="/user" >
-                    <div className="menu-pages" onClick={() => setSearchVisible(!isSearchVisible)}>
+                    {/* <div className="menu-pages" onClick={() => setSearchVisible(!isSearchVisible)}> */}
+                    <div className="menu-pages" >
                         <div className="menu-titles">
                         <i className="fa-solid fa-magnifying-glass menu-icons"></i>
                         </div>
@@ -55,7 +57,7 @@ function SideMenu({setCreateVisible, isCreateVisible,setSearchVisible, isSearchV
                 </NavLink>
 
                 <NavLink style={navActive} end to="/user/create" >
-                    <div className="menu-pages" onClick={() => setCreateVisible(!isCreateVisible)} >
+                    <div className="menu-pages" >
                         <div className="menu-titles">
                         <i className="fa-regular fa-square-plus menu-icons"></i>
                         </div>

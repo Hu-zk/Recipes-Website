@@ -12,7 +12,7 @@ export const sendRequest = async ({
   if (!route) throw Error("URL required");
 
   axios.defaults.headers.authorization = includeHeaders
-    ? `Bearer ${localStorageAction("jwtToken")}`
+    ? `Bearer ${localStorageAction("access_token")}`
     : "";
 
   try {

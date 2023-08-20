@@ -77,6 +77,16 @@
   padding: 0.7em 1.2em;
 }
 
+.label-input .select-ingredients {
+  width: 65%;
+}
+
+.error-message {
+  color: red;
+  font-weight: 600;
+  font-size: 1em;
+}
+
 .label-input input:focus {
   background-color: #efefef;
 }
