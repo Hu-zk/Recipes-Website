@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 
 function Cards({recipes}) {
 
     const [activeRecipeIndex, setActiveRecipeIndex] = useState(null);
+    const [favorites, setFavorites] = useState([]);
 
     const toggleIngredients = (index) => {
         if (activeRecipeIndex === index) {
@@ -11,6 +13,17 @@ function Cards({recipes}) {
             setActiveRecipeIndex(index);
         }
     };
+
+    const toggleFavorite = (recipeId) => {
+        if (favorites.includes(recipeId)) {
+            setFavorites(favorites.filter(id => id !== recipeId));
+        } else {
+            setFavorites([...favorites, recipeId]);
+        }
+    };
+
+    const isFavorite = (recipeId) => favorites.includes(recipeId);
+
 
     return (
         <div className="cards-container">
@@ -21,7 +34,9 @@ function Cards({recipes}) {
                         <div className='recipe-cuisine'>{recipes.cuisine}</div>
                     <div className='name-heart'>
                         <div className='recipe-name'>{recipes.name}</div>
-                        <i className="fa-regular fa-heart menu-icons"></i>
+                        <div className='heart-icon' onClick={() => toggleFavorite(recipes.id)}>
+                            {isFavorite(recipes.id) ? <AiFillHeart size={28} color="red" /> : <AiOutlineHeart size={28} />}
+                        </div>
                     </div>
                     <div className='recipe-ingredient' onClick={() => toggleIngredients(index)}>Show Ingredients</div>
                     {activeRecipeIndex === index && (
@@ -31,13 +46,6 @@ function Cards({recipes}) {
                             ))}
                         </ul>
                     )}
-                    {/* <select className="ingredients-dropdown">
-                    <b>Ingredients</b>
-                        {recipes.ingredients.map((ingredient, ingredientIndex) => (
-                            <option key={ingredientIndex}>{ingredient.name}</option>
-                        ))}
-                    </select> */}
-
                 </div>
             ))}
         </div>
