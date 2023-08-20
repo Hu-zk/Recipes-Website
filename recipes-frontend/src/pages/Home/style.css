@@ -12,16 +12,37 @@
   flex-wrap: wrap;
   margin: 2em 1em;
 }
+
+.card-comment-container {
+  margin: 2em 0;
+}
+
 .card {
   display: flex;
   flex-flow: column;
-  justify-content: center;
+  /* justify-content: center; */
   background-color: rgb(255, 255, 255);
   border-radius: 0.4em;
   width: 300px;
   height: 300px;
   height: 100%;
   padding: 1em;
+  padding-bottom: 0;
+}
+
+.card-comment {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+}
+
+.card-comment input {
+  border-radius: 0.5em;
+  border: none;
+  width: 90%;
+  padding: 0.5em;
+  margin: 0.5em 0.2em;
 }
 
 .recipe-img {

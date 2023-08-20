@@ -83,6 +83,30 @@ class RecipeController extends Controller
         }
     }
 
+    // public function display()
+    // {
+    //     try {
+    //         $user = Auth::user();
+    //         $recipes = Recipe::with([
+    //             'ingredients',
+    //             'likes' => function ($query) use ($user) {
+    //                 $query->where('user_id', $user->id);
+    //             },
+    //             'shoppingLists' => function ($query) use ($user) {
+    //                 $query->where('user_id', $user->id);
+    //             }
+    //         ])->get();
+
+    //         if ($recipes->isEmpty()) {
+    //             return response()->json(['message' => 'No recipes found for the given search criteria.'], 404);
+    //         }
+
+    //         return response()->json(['recipes' => $recipes]);
+    //     } catch (\Exception $e) {
+    //         return response()->json(['error' => 'An error occurred while processing the request.'], 500);
+    //     }
+    // }
+
     public function display()
     {
         try {
@@ -94,7 +118,8 @@ class RecipeController extends Controller
                 },
                 'shoppingLists' => function ($query) use ($user) {
                     $query->where('user_id', $user->id);
-                }
+                },
+                'comments'
             ])->get();
 
             if ($recipes->isEmpty()) {
@@ -106,6 +131,7 @@ class RecipeController extends Controller
             return response()->json(['error' => 'An error occurred while processing the request.'], 500);
         }
     }
+
 
 
     public function toggleLike($recipeId)

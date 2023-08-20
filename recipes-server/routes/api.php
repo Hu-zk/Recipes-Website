@@ -29,7 +29,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
     Route::get('recipes/{recipe}/share-url', [RecipeController::class, 'getRecipeShareUrl']);
 
     Route::post('shopping-lists/toggle/{recipeId}', [ShoppingController::class, 'toggleShoppingList']);
-    Route::post('shopping-lists/add/{recipeId}', [ShoppingController::class, 'addToShoppingList']);
+    // Route::post('shopping-lists/add/{recipeId}', [ShoppingController::class, 'addToShoppingList']);
     Route::get('shopping-lists', [ShoppingController::class, 'getShoppingList']);
 
     Route::post('calendar/events', [CalendarController::class, 'planMeal']);
