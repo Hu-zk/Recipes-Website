@@ -38,7 +38,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 0.3em;
-  padding: 0.5em 0 0.5em 1.2em;
+  padding: 0.5em 0 0.5em 1.5em;
   cursor: pointer;
 }
 
@@ -47,7 +47,7 @@
   fill: rgb(0, 0, 0);
   font-size: 1.7em;
   font-weight: 700;
-  margin-left: 0.7em;
+  margin-left: 1em;
   display: flex;
   align-items: center;
   gap: 1em;

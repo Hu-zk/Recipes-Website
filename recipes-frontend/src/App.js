@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes,Route } from "react-router-dom";
 import Authentication from './pages/Authentication';
 import Layout from './pages/Layout';
@@ -7,9 +7,6 @@ import Home from './pages/Home';
 import Favourite from './pages/Favourite';
 
 function App() {
-
-  // const [isSearchVisible, setSearchVisible] = useState(false);
-
 
   return (
     <BrowserRouter>

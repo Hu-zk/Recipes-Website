@@ -2,7 +2,6 @@ import React from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
 import './style.css'
 
-// function SideMenu({setCreateVisible, isCreateVisible,setSearchVisible, isSearchVisible}) {
 function SideMenu() {
     const navigation = useNavigate();
 
@@ -23,7 +22,7 @@ function SideMenu() {
 
             <div className="insta-title">
                 <div className="menu-titles">
-                    <i class="fa-solid fa-utensils"></i>
+                    <i className="fa-solid fa-utensils"></i>
                 </div>
                 <h4>Foody</h4>
             </div>
@@ -40,7 +39,6 @@ function SideMenu() {
                 </NavLink>
 
                 <NavLink style={navActive} end to="/user" >
-                    {/* <div className="menu-pages" onClick={() => setSearchVisible(!isSearchVisible)}> */}
                     <div className="menu-pages" >
                         <div className="menu-titles">
                         <i className="fa-solid fa-magnifying-glass menu-icons"></i>

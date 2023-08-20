@@ -3,6 +3,7 @@ import Cards from "../../components/Cards";
 import { requestMethods } from '../../core/enums/requestMethods';
 import { sendRequest } from '../../core/config/request';
 import './style.css';
+import SearchBar from '../../components/SearchBar';
 
 
 function Home() {
@@ -15,7 +16,7 @@ function Home() {
                 route: "/user/recipes/display",
                 method: requestMethods.GET,
             });
-            console.log(response)
+            console.log(response.recipes)
             setRecipes(response.recipes)
         } catch (error) {
             console.error('failed:', error);
@@ -26,8 +27,9 @@ function Home() {
     }, []);
 
     return (
-        <div>
-            <Cards recipes={recipes}/>
+        <div className='home-page-container'>
+            <SearchBar/>
+            <Cards recipes={recipes} setRecipes={setRecipes}/>
         </div>
     )
 }

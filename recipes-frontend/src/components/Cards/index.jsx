@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { sendRequest } from '../../core/config/request';
+import { requestMethods } from '../../core/enums/requestMethods';
 
-function Cards({recipes}) {
+function Cards({recipes,setRecipes}) {
 
     const [activeRecipeIndex, setActiveRecipeIndex] = useState(null);
-    const [favorites, setFavorites] = useState([]);
 
     const toggleIngredients = (index) => {
         if (activeRecipeIndex === index) {
@@ -14,16 +15,28 @@ function Cards({recipes}) {
         }
     };
 
-    const toggleFavorite = (recipeId) => {
-        if (favorites.includes(recipeId)) {
-            setFavorites(favorites.filter(id => id !== recipeId));
-        } else {
-            setFavorites([...favorites, recipeId]);
+    const toggleLike = async (recipeId) => {
+        try {
+            const response = await sendRequest({
+                route: `/user/recipes/${recipeId}/toggle-like`,
+                method: requestMethods.POST,
+            });
+            
+            setRecipes((prevRecipes) => {
+                return prevRecipes.map((recipe) => {
+                    if (recipe.id === recipeId) {
+                        return {
+                            ...recipe,
+                            likes: response.like_count > 0 ? [{ user_id: response.user_id }] : [],
+                        };
+                    }
+                    return recipe;
+                });
+            });
+        } catch (error) {
+            console.error('Failed to toggle like:', error);
         }
     };
-
-    const isFavorite = (recipeId) => favorites.includes(recipeId);
-
 
     return (
         <div className="cards-container">
@@ -34,9 +47,19 @@ function Cards({recipes}) {
                         <div className='recipe-cuisine'>{recipes.cuisine}</div>
                     <div className='name-heart'>
                         <div className='recipe-name'>{recipes.name}</div>
-                        <div className='heart-icon' onClick={() => toggleFavorite(recipes.id)}>
-                            {isFavorite(recipes.id) ? <AiFillHeart size={28} color="red" /> : <AiOutlineHeart size={28} />}
-                        </div>
+                        {recipes.likes.length > 0 ? (
+                            <AiFillHeart
+                                size={28}
+                                color="red"
+                                onClick={() => toggleLike(recipes.id)}
+                            />
+                        ) : (
+                            <AiOutlineHeart
+                                size={28}
+                                onClick={() => toggleLike(recipes.id)}
+                            />
+                        )}
+
                     </div>
                     <div className='recipe-ingredient' onClick={() => toggleIngredients(index)}>Show Ingredients</div>
                     {activeRecipeIndex === index && (
