@@ -1,16 +1,53 @@
 .cards-container {
-  /* border: 1pt solid red; */
   display: flex;
+  justify-content: center;
   gap: 2em;
   flex-wrap: wrap;
+  margin: 2em 1em;
 }
 .card {
-  border: 2pt solid blue;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  border-radius: 0.4em;
   width: 300px;
   height: 300px;
+  height: 100%;
+  padding: 1em;
 }
 
 .recipe-img {
+  border-radius: 0.4em;
   width: 300px;
   height: 200px;
+}
+
+.recipe-cuisine {
+  font-size: 0.9em;
+  font-weight: 500;
+}
+
+.recipe-name {
+  font-size: 1.5em;
+  font-weight: 500;
+}
+
+.recipe-ingredient {
+  font-size: 1em;
+  font-weight: 500;
+  color: rgb(134, 134, 135);
+  height: fit-content;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.recipe-ingredient:hover {
+  color: rgb(0, 0, 0);
+}
+
+.name-heart {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

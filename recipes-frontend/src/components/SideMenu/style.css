@@ -47,10 +47,10 @@
   fill: rgb(0, 0, 0);
   font-size: 1.7em;
   font-weight: 700;
-  margin-left: 1em;
+  margin-left: 0.7em;
   display: flex;
   align-items: center;
-  cursor: pointer;
+  gap: 1em;
 }
 
 .menu-pages:hover {

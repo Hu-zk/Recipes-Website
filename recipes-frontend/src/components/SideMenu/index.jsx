@@ -9,7 +9,6 @@ function SideMenu() {
 
     const handleLogout = () => {
         localStorage.clear();
-        // window.location.href='http://localhost:3000/'
         navigation("/");
     }
 
@@ -23,7 +22,10 @@ function SideMenu() {
         <div id="side-menu">
 
             <div className="insta-title">
-                Foody
+                <div className="menu-titles">
+                    <i class="fa-solid fa-utensils"></i>
+                </div>
+                <h4>Foody</h4>
             </div>
 
             <div className="menu-section">
