@@ -51,7 +51,7 @@ function RecipeForm() {
         if (file) {
             const reader = new FileReader();
             reader.onload = () => {
-                setImage(reader.result); 
+                setImage(reader.result.split(',')[1]); 
             };
             reader.readAsDataURL(file);
         }
@@ -101,7 +101,7 @@ function RecipeForm() {
 
                         <div className="label-input">
                             <label htmlFor="image">Image </label>
-                            <input required id="image" name="image" type="file" accept="image/*" onChange={handleImageChange}/>
+                            <input required id="image" name="image" type="file" onChange={handleImageChange}/>
                         </div>
 
                         <div className="label-input">

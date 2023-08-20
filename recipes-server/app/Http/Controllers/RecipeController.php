@@ -86,7 +86,8 @@ class RecipeController extends Controller
     public function display()
     {
         try {
-            $recipes = Recipe::all();
+            // $recipes = Recipe::all();
+            $recipes = Recipe::with('ingredients')->get();
 
             if ($recipes->isEmpty()) {
                 return response()->json(['message' => 'No recipes found for the given search criteria.'], 404);
