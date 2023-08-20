@@ -87,9 +87,15 @@ class RecipeController extends Controller
     {
         try {
             $user = Auth::user();
-            $recipes = Recipe::with(['ingredients', 'likes' => function ($query) use ($user) {
-                $query->where('user_id', $user->id);
-            }])->get();
+            $recipes = Recipe::with([
+                'ingredients',
+                'likes' => function ($query) use ($user) {
+                    $query->where('user_id', $user->id);
+                },
+                'shoppingLists' => function ($query) use ($user) {
+                    $query->where('user_id', $user->id);
+                }
+            ])->get();
 
             if ($recipes->isEmpty()) {
                 return response()->json(['message' => 'No recipes found for the given search criteria.'], 404);
@@ -100,6 +106,7 @@ class RecipeController extends Controller
             return response()->json(['error' => 'An error occurred while processing the request.'], 500);
         }
     }
+
 
     public function toggleLike($recipeId)
     {

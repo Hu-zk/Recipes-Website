@@ -17,7 +17,13 @@ function Home() {
                 method: requestMethods.GET,
             });
             console.log(response.recipes)
-            setRecipes(response.recipes)
+            const updatedRecipes = response.recipes.map((recipe) => ({
+                ...recipe,
+                shoppingList: recipe.shopping_lists.length > 0, 
+            }));
+    
+            setRecipes(updatedRecipes);
+            // setRecipes(response.recipes)
         } catch (error) {
             console.error('failed:', error);
         }
