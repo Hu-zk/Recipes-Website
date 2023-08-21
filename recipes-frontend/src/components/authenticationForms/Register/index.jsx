@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "./style.css"
 import { requestMethods } from '../../../core/enums/requestMethods';
 import { sendRequest } from '../../../core/config/request';
+import { useNavigate } from 'react-router-dom';
 
 
 function Register({onToggle}) {
@@ -11,6 +12,9 @@ function Register({onToggle}) {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [name, setName] = useState('');
     const [error, setError] = useState('');
+
+    const navigation = useNavigate();
+
 
 
     const handleUserCreation = async (event) => {
@@ -37,6 +41,7 @@ function Register({onToggle}) {
                 setEmail("")
                 setPassword("")
                 setConfirmPassword("")
+                navigation("/");
 
             }
         } catch (error) {

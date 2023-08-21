@@ -41,9 +41,9 @@ function SideMenu() {
                 <NavLink style={navActive} end to="/user" >
                     <div className="menu-pages" >
                         <div className="menu-titles">
-                        <i className="fa-solid fa-magnifying-glass menu-icons"></i>
+                        <i className="fa-regular fa-calendar menu-icons"></i>
                         </div>
-                        <h4>Search</h4>
+                        <h4>Calender</h4>
                     </div>
                 </NavLink>
 
