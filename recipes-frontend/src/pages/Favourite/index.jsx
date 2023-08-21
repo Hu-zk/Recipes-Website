@@ -24,6 +24,7 @@ function Favourite() {
     useEffect(() => {
         fetchData();
     }, []);
+    
 
     return (
         <div className='home-page-container'>

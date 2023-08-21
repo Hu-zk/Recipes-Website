@@ -3,8 +3,10 @@ import React, { useState } from 'react'
 function FavCards({recipes}) {
 
     const [activeRecipeIndex, setActiveRecipeIndex] = useState(null);
-
-
+    
+    if (!recipes) {
+        return <p>No Favourite Recipes</p>;
+    }
 
     const toggleIngredients = (index) => {
         if (activeRecipeIndex === index) {

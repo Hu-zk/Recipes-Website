@@ -8,8 +8,17 @@ function Cards({recipes,setRecipes,fetchData}) {
     const [activeRecipeIndex, setActiveRecipeIndex] = useState(null);
     const [activeCommentIndex, setActiveCommentIndex] = useState(null);
     const [commentText, setCommentText] = useState('');
+    // const [selectedDay, setSelectedDay] = useState(0); 
 
+    // const daysOfWeek = ['None', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
+    if (!recipes) {
+        return <p>No Recipes</p>;
+    }
+
+    // const handleDayChange = (event) => {
+    //     setSelectedDay(parseInt(event.target.value));
+    // };
 
     const toggleIngredients = (index) => {
         if (activeRecipeIndex === index) {
@@ -122,6 +131,11 @@ function Cards({recipes,setRecipes,fetchData}) {
                         <div className='recipe-cuisine'>{recipes.cuisine}</div>
                         <div className='name-heart'>
                             <div className='recipe-name'>{recipes.name}</div>
+                            {/* <select value={selectedDay} onChange={handleDayChange}>
+                                {daysOfWeek.map((day, dayIndex) => (
+                                    <option key={dayIndex} value={dayIndex}>{day}</option>
+                                ))}
+                            </select> */}
                             <div className='card-icons'>
                                 <AiOutlinePlusCircle
                                     size={28}

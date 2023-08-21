@@ -52,23 +52,6 @@ class CalendarController extends Controller
     {
         try {
 
-            // $dayOfWeek = intval($dayOfWeek);
-
-            // if ($dayOfWeek < 1 || $dayOfWeek > 7) {
-            //     return response()->json(['message' => 'Invalid day of the week.'], 400);
-            // }
-
-            // $plannedMeals = CalendarEvent::where([
-            //     'user_id' => $user->id,
-            //     'day_of_week' => $dayOfWeek,
-            // ])
-            //     ->with('recipe')
-            //     ->get();
-
-            // if ($plannedMeals->isEmpty()) {
-            //     return response()->json(['message' => 'No planned meals for the specified day.'], 404);
-            // }
-
             $user = Auth::user();
 
             $plannedMeals = CalendarEvent::where('user_id', $user->id)
