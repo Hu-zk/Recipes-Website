@@ -38,7 +38,7 @@ function SideMenu() {
                     </div>
                 </NavLink>
 
-                <NavLink style={navActive} end to="/user" >
+                <NavLink style={navActive} end to="/user/calendar" >
                     <div className="menu-pages" >
                         <div className="menu-titles">
                         <i className="fa-regular fa-calendar menu-icons"></i>
