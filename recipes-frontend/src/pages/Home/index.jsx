@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Cards from "../../components/Cards";
 import { requestMethods } from '../../core/enums/requestMethods';
 import { sendRequest } from '../../core/config/request';
-import './style.css';
 import SearchBar from '../../components/SearchBar';
+import './style.css';
 
 
 function Home() {
@@ -17,13 +17,7 @@ function Home() {
                 method: requestMethods.GET,
             });
             console.log(response.recipes)
-            const updatedRecipes = response.recipes.map((recipe) => ({
-                ...recipe,
-                shoppingList: recipe.shopping_lists.length > 0, 
-            }));
-    
-            setRecipes(updatedRecipes);
-            // setRecipes(response.recipes)
+            setRecipes(response.recipes);
         } catch (error) {
             console.error('failed:', error);
         }
@@ -34,8 +28,8 @@ function Home() {
 
     return (
         <div className='home-page-container'>
-            <SearchBar/>
-            <Cards recipes={recipes} setRecipes={setRecipes}/>
+            <SearchBar setRecipes={setRecipes}/>
+            <Cards recipes={recipes} setRecipes={setRecipes} fetchData={fetchData}/>
         </div>
     )
 }

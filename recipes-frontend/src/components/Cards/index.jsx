@@ -3,7 +3,7 @@ import { AiFillHeart, AiOutlineHeart, AiOutlinePlusCircle, AiOutlineSend } from 
 import { sendRequest } from '../../core/config/request';
 import { requestMethods } from '../../core/enums/requestMethods';
 
-function Cards({recipes,setRecipes}) {
+function Cards({recipes,setRecipes,fetchData}) {
 
     const [activeRecipeIndex, setActiveRecipeIndex] = useState(null);
     const [activeCommentIndex, setActiveCommentIndex] = useState(null);
@@ -99,9 +99,10 @@ function Cards({recipes,setRecipes}) {
                     if (recipe.id === recipeId) {
                         return {
                             ...recipe,
-                            shoppingList: !recipe.shoppingList,
+                            shopping_lists: !recipe.shopping_lists,
                         };
                     }
+                    fetchData()
                     return recipe;
                 });
             });
@@ -124,7 +125,7 @@ function Cards({recipes,setRecipes}) {
                             <div className='card-icons'>
                                 <AiOutlinePlusCircle
                                     size={28}
-                                    color={recipes.shoppingList ? "blue" : "black"}
+                                    color={recipes.shopping_lists.length > 0 ? "blue" : "black"}
                                     onClick={() => toggleShoppingList(recipes.id)}
                                 />
                                 {recipes.likes && recipes.likes.length > 0 ? (

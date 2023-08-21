@@ -66,11 +66,22 @@ class RecipeController extends Controller
     public function search($searchItem)
     {
         try {
+            $user = Auth::user();
+
             $recipes = Recipe::where('name', 'LIKE', "%$searchItem%")
                 ->orWhere('cuisine', 'LIKE', "%$searchItem%")
                 ->orWhereHas('ingredients', function ($query) use ($searchItem) {
                     $query->where('name', 'LIKE', "%$searchItem%");
-                })
+                })->with([
+                    'ingredients',
+                    'likes' => function ($query) use ($user) {
+                        $query->where('user_id', $user->id);
+                    },
+                    'shoppingLists' => function ($query) use ($user) {
+                        $query->where('user_id', $user->id);
+                    },
+                    'comments'
+                ])
                 ->get();
 
             if ($recipes->isEmpty()) {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { requestMethods } from '../../core/enums/requestMethods';
 import { sendRequest } from '../../core/config/request';
 import FavCards from '../../components/FavCard';
+import "./style.css"
 
 
 function Favourite() {
@@ -26,6 +27,7 @@ function Favourite() {
 
     return (
         <div className='home-page-container'>
+            <div className='page-title'>Favourites :</div>
             <FavCards recipes={recipes} setRecipes={setRecipes}/>
         </div>
     )
