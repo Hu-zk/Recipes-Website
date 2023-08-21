@@ -14,8 +14,8 @@ function Favourite() {
                 route: "/user/shopping-lists",
                 method: requestMethods.GET,
             });
-            console.log(response.recipes)
-            setRecipes(response.recipes);
+            console.log(response.shoppingList)
+            setRecipes(response.shoppingList);
         } catch (error) {
             console.error('failed:', error);
         }
