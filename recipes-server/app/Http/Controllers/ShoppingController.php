@@ -68,15 +68,14 @@ class ShoppingController extends Controller
         }
     }
 
-
     public function getShoppingList()
     {
         try {
             $user = Auth::user();
 
-            $shoppingList = $user->shoppingList;
+            $shoppingList = $user->shoppingLists()->with('recipe.ingredients')->get();
 
-            return response()->json(['shopping_list' => $shoppingList]);
+            return response()->json(['shoppingList' => $shoppingList]);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
