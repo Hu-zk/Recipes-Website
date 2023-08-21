@@ -7,6 +7,8 @@ function Cards({recipes,setRecipes}) {
 
     const [activeRecipeIndex, setActiveRecipeIndex] = useState(null);
     const [activeCommentIndex, setActiveCommentIndex] = useState(null);
+    const [commentText, setCommentText] = useState('');
+
 
 
     const toggleIngredients = (index) => {
@@ -22,6 +24,42 @@ function Cards({recipes,setRecipes}) {
             setActiveCommentIndex(null);
         } else {
             setActiveCommentIndex(index);
+        }
+    };
+
+    const postComment = async (recipeId) => {
+        try {
+            console.log("hi")
+            if (commentText.trim() === '') {
+                return; 
+            }
+            console.log("hi2")
+    
+            const response = await sendRequest({
+                route: '/user/recipes/comment',
+                method: requestMethods.POST,
+                body: {
+                    recipe_id: recipeId,
+                    comment: commentText,
+                },
+            });
+            console.log(response)
+    
+            setRecipes((prevRecipes) => {
+                return prevRecipes.map((recipe) => {
+                    if (recipe.id === recipeId) {
+                        return {
+                            ...recipe,
+                            comments: [...recipe.comments, { comment: commentText }],
+                        };
+                    }
+                    return recipe;
+                });
+            });
+    
+            setCommentText('');
+        } catch (error) {
+            console.error('Failed to post comment:', error);
         }
     };
 
@@ -124,8 +162,8 @@ function Cards({recipes,setRecipes}) {
                         )}
                     </div>
                     <div className='card-comment'>
-                        <input type="text" placeholder='Add a Comment'/>
-                        <AiOutlineSend size={28} />
+                        <input type="text" placeholder='Add a Comment' onChange={(e) => setCommentText(e.target.value)}/>
+                        <AiOutlineSend size={28}  onClick={() => postComment(recipes.id)} />                    
                     </div>
                 </div>
             ))}
