@@ -131,3 +131,10 @@
   margin: 1em 0;
   border-radius: 0.5em;
 }
+
+.card-calendar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2em;
+}
