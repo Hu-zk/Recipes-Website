@@ -14,7 +14,7 @@ class CalendarEvent extends Model
     protected $fillable = [
         'user_id',
         'recipe_id',
-        'day_of_week',
+        'event_date',
     ];
 
     public function user()

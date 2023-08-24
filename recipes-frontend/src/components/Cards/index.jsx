@@ -119,13 +119,20 @@ function Cards({recipes,setRecipes,fetchData}) {
 
     const handleDateSelection = async (recipeId, date) => {
         try {
-            // Send a request to save the recipe for the selected date
-            // Use the 'date' and 'recipeId' to perform the action
-            // Update your state or fetch data if needed
-        
-            // Clear the selected date after processing
+            console.log(date.toISOString().split('T')[0])
+            const response = await sendRequest({
+                route: '/user/calendar/events',
+                method: requestMethods.POST,
+                body: {
+                    recipe_id: recipeId,
+                    event_date: date.toISOString().split('T')[0], 
+                },
+            });
+            console.log(response);
+
             setSelectedDate(null);
             setActiveCalendarIndex(null);
+            fetchData();
         } catch (error) {
             console.error('Failed to add to date:', error);
         }
