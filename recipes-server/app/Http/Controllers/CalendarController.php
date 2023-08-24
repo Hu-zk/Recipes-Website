@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CalendarEvent;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class CalendarController extends Controller
@@ -20,6 +21,10 @@ class CalendarController extends Controller
             $user = Auth::user();
             $recipeId = $request->recipe_id;
             $eventDate = $request->event_date;
+
+            if (Carbon::parse($eventDate)->isSameDay(Carbon::today()) || Carbon::parse($eventDate)->isPast()) {
+                return response()->json(['message' => 'Invalid date selected.'], 400);
+            }
 
             $existingEvent = CalendarEvent::where([
                 'user_id' => $user->id,
