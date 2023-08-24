@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { AiFillHeart, AiOutlineHeart, AiOutlinePlusCircle, AiOutlineSend } from 'react-icons/ai';
 import { sendRequest } from '../../core/config/request';
 import { requestMethods } from '../../core/enums/requestMethods';
-import ReactCalendar, { Calendar } from 'react-calendar';
+import ReactCalendar from 'react-calendar';
 import { format } from 'date-fns';
 import 'react-calendar/dist/Calendar.css';
 
@@ -15,17 +15,9 @@ function Cards({recipes,setRecipes,fetchData}) {
     const [commentText, setCommentText] = useState('');
     const [selectedDate, setSelectedDate] = useState(null);
 
-    // const [selectedDay, setSelectedDay] = useState(0); 
-
-    // const daysOfWeek = ['None', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
     if (!recipes) {
         return <p>No Recipes</p>;
     }
-
-    // const handleDayChange = (event) => {
-    //     setSelectedDay(parseInt(event.target.value));
-    // };
 
     const toggleIngredients = (index) => {
         if (activeRecipeIndex === index) {
@@ -45,11 +37,9 @@ function Cards({recipes,setRecipes,fetchData}) {
 
     const postComment = async (recipeId) => {
         try {
-            console.log("hi")
             if (commentText.trim() === '') {
                 return; 
             }
-            console.log("hi2")
     
             const response = await sendRequest({
                 route: '/user/recipes/comment',
@@ -141,11 +131,18 @@ function Cards({recipes,setRecipes,fetchData}) {
         }
     };
     
-    // Format the selected date for display
     const formatSelectedDate = (date) => {
-        return format(date, 'MMMM do, yyyy'); // Adjust the format as needed
+        return format(date, 'MMMM do, yyyy'); 
     };
-    
+
+    const toggleCalendar = (index) => {
+        if (activeCalendarIndex === index) {
+            setActiveCalendarIndex(null);
+        } else {
+            setActiveCalendarIndex(index);
+            setSelectedDate(null);
+        }
+    };
 
     return (
         <div className="cards-container">
@@ -157,11 +154,6 @@ function Cards({recipes,setRecipes,fetchData}) {
                         <div className='recipe-cuisine'>{recipes.cuisine}</div>
                         <div className='name-heart'>
                             <div className='recipe-name'>{recipes.name}</div>
-                            {/* <select value={selectedDay} onChange={handleDayChange}>
-                                {daysOfWeek.map((day, dayIndex) => (
-                                    <option key={dayIndex} value={dayIndex}>{day}</option>
-                                ))}
-                            </select> */}
                             <div className='card-icons'>
                                 <AiOutlinePlusCircle
                                     size={28}
@@ -182,7 +174,7 @@ function Cards({recipes,setRecipes,fetchData}) {
                                 )}
                             </div>
                         </div>
-                        <div className='recipe-ingredient' onClick={() => setActiveCalendarIndex(index)}>Plan to Meal</div>
+                        <div className='recipe-ingredient' onClick={() => toggleCalendar(index)}>Plan to Meal</div>
                         {activeCalendarIndex === index && (
                             <div className="calendar-container">
                                 <ReactCalendar
