@@ -2,12 +2,19 @@ import React, { useState } from 'react'
 import { AiFillHeart, AiOutlineHeart, AiOutlinePlusCircle, AiOutlineSend } from 'react-icons/ai';
 import { sendRequest } from '../../core/config/request';
 import { requestMethods } from '../../core/enums/requestMethods';
+import ReactCalendar, { Calendar } from 'react-calendar';
+import { format } from 'date-fns';
+import 'react-calendar/dist/Calendar.css';
 
 function Cards({recipes,setRecipes,fetchData}) {
 
     const [activeRecipeIndex, setActiveRecipeIndex] = useState(null);
     const [activeCommentIndex, setActiveCommentIndex] = useState(null);
+    const [activeCalendarIndex, setActiveCalendarIndex] = useState(null);
+
     const [commentText, setCommentText] = useState('');
+    const [selectedDate, setSelectedDate] = useState(null);
+
     // const [selectedDay, setSelectedDay] = useState(0); 
 
     // const daysOfWeek = ['None', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -119,6 +126,25 @@ function Cards({recipes,setRecipes,fetchData}) {
             console.error('Failed to toggle shopping list:', error);
         }
     };
+
+    const handleDateSelection = async (recipeId, date) => {
+        try {
+            // Send a request to save the recipe for the selected date
+            // Use the 'date' and 'recipeId' to perform the action
+            // Update your state or fetch data if needed
+        
+            // Clear the selected date after processing
+            setSelectedDate(null);
+            setActiveCalendarIndex(null);
+        } catch (error) {
+            console.error('Failed to add to date:', error);
+        }
+    };
+    
+    // Format the selected date for display
+    const formatSelectedDate = (date) => {
+        return format(date, 'MMMM do, yyyy'); // Adjust the format as needed
+    };
     
 
     return (
@@ -156,6 +182,21 @@ function Cards({recipes,setRecipes,fetchData}) {
                                 )}
                             </div>
                         </div>
+                        <div className='recipe-ingredient' onClick={() => setActiveCalendarIndex(index)}>Plan to Meal</div>
+                        {activeCalendarIndex === index && (
+                            <div className="calendar-container">
+                                <ReactCalendar
+                                    className='calendar'
+                                    onChange={(date) => setSelectedDate(date)}
+                                    value={selectedDate}
+                                />
+                                {selectedDate && (
+                                    <button className='calendar-btn' onClick={() => handleDateSelection(recipes.id, selectedDate)}>
+                                        Add to {formatSelectedDate(selectedDate)}
+                                    </button>
+                                )}
+                            </div>
+                        )}
 
                         <div className='recipe-ingredient' onClick={() => toggleIngredients(index)}>Ingredients</div>
                         {activeRecipeIndex === index && (
