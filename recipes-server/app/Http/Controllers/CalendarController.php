@@ -75,4 +75,25 @@ class CalendarController extends Controller
             ], 500);
         }
     }
+
+    public function deleteEvent($eventId)
+    {
+        try {
+            $event = CalendarEvent::find($eventId);
+
+            if (!$event) {
+                return response()->json(['message' => 'Event not found'], 404);
+            }
+
+            $event->delete();
+
+            return response()->json(['message' => 'Event deleted successfully']);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'An error occurred while processing the request.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
 }

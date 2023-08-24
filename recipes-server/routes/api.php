@@ -32,6 +32,8 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
     Route::get('shopping-lists', [ShoppingController::class, 'getShoppingList']);
 
     Route::post('calendar/events', [CalendarController::class, 'planMeal']);
+    Route::post('calendar/events/{eventId}', [CalendarController::class, 'deleteEvent']);
+
     Route::get('calendar/events', [CalendarController::class, 'getPlannedMeals']);
 
     Route::post("logout", [AuthController::class, "logout"]);
