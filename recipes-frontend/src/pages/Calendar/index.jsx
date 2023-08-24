@@ -8,27 +8,27 @@ function Calendar() {
 
     const [events, setEvents] = useState('');
     
-    useEffect(() => {
-        const fetchData = async () =>{
-            try {
-                const response = await sendRequest({
-                    route: "/user/calendar/events",
-                    method: requestMethods.GET,
-                });
-                console.log(response.planned_meals)
-                setEvents(response.planned_meals)
-            } catch (error) {
-                console.error('failed:', error);
-            }
+    const fetchData = async () =>{
+        try {
+            const response = await sendRequest({
+                route: "/user/calendar/events",
+                method: requestMethods.GET,
+            });
+            console.log(response.planned_meals)
+            setEvents(response.planned_meals)
+        } catch (error) {
+            console.error('failed:', error);
         }
+    }
     
+    useEffect(() => {
         fetchData();
     }, []);
 
     return (
         <div className='home-page-container'>
             <div className='page-title'>Calendar :</div>
-            <CalendarList events={events}/>
+            <CalendarList events={events} fetchData={fetchData}/>
         </div>
     )
 }

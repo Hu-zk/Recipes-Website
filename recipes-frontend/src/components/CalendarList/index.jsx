@@ -5,14 +5,14 @@ import { requestMethods } from '../../core/enums/requestMethods';
 
 function CalendarList({ events, fetchData }) {
     if (!events) {
-        return <p>Loading events...</p>;
+        return <p className='note'>No Planned Meals </p>;
     }
 
     const handleDelete = async (eventId) => {
         try {
             const response = await sendRequest({
                 route: `/user/calendar/events/${eventId}`,
-                method: requestMethods.DELETE,
+                method: requestMethods.POST,
             });
             console.log(response);
             fetchData(); 
