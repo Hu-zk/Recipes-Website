@@ -14,10 +14,8 @@ function CalendarList({ events, fetchData }) {
                 route: `/user/calendar/events/${eventId}`,
                 method: requestMethods.DELETE,
             });
-
-            if (response.message === 'Event deleted successfully') {
-                fetchData(); // Fetch updated data after deleting the event
-            }
+            console.log(response);
+            fetchData(); 
         } catch (error) {
             console.error('Failed to delete event:', error);
         }
