@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { AiFillHeart, AiOutlineHeart, AiOutlinePlusCircle, AiOutlineSend } from 'react-icons/ai';
+import { AiFillFacebook, AiFillHeart, AiOutlineHeart, AiOutlinePlusCircle, AiOutlineSend, AiOutlineWhatsApp } from 'react-icons/ai';
+import { FacebookShareButton, WhatsappShareButton } from 'react-share';
 import { sendRequest } from '../../core/config/request';
 import { requestMethods } from '../../core/enums/requestMethods';
 import ReactCalendar from 'react-calendar';
@@ -11,6 +12,8 @@ function Cards({recipes,setRecipes,fetchData}) {
     const [activeRecipeIndex, setActiveRecipeIndex] = useState(null);
     const [activeCommentIndex, setActiveCommentIndex] = useState(null);
     const [activeCalendarIndex, setActiveCalendarIndex] = useState(null);
+    const [activeSharingIndex, setActiveSharingIndex] = useState(null); 
+
 
     const [commentText, setCommentText] = useState('');
     const [selectedDate, setSelectedDate] = useState(null);
@@ -18,6 +21,23 @@ function Cards({recipes,setRecipes,fetchData}) {
     if (!recipes) {
         return <p>No Recipes</p>;
     }
+
+    const toggleSharing = (index) => {
+        if (activeSharingIndex === index) {
+            setActiveSharingIndex(null);
+        } else {
+            setActiveSharingIndex(index);
+        }
+    };
+
+    const toggleCalendar = (index) => {
+        if (activeCalendarIndex === index) {
+            setActiveCalendarIndex(null);
+        } else {
+            setActiveCalendarIndex(index);
+            setSelectedDate(null);
+        }
+    };
 
     const toggleIngredients = (index) => {
         if (activeRecipeIndex === index) {
@@ -117,6 +137,10 @@ function Cards({recipes,setRecipes,fetchData}) {
         }
     };
 
+    const formatSelectedDate = (date) => {
+        return format(date, 'MMMM do, yyyy'); 
+    };
+    
     const handleDateSelection = async (recipeId, date) => {
         try {
             const response = await sendRequest({
@@ -137,18 +161,6 @@ function Cards({recipes,setRecipes,fetchData}) {
         }
     };
     
-    const formatSelectedDate = (date) => {
-        return format(date, 'MMMM do, yyyy'); 
-    };
-
-    const toggleCalendar = (index) => {
-        if (activeCalendarIndex === index) {
-            setActiveCalendarIndex(null);
-        } else {
-            setActiveCalendarIndex(index);
-            setSelectedDate(null);
-        }
-    };
 
     return (
         <div className="cards-container">
@@ -180,6 +192,17 @@ function Cards({recipes,setRecipes,fetchData}) {
                                 )}
                             </div>
                         </div>
+                        <div className='recipe-ingredient' onClick={() => toggleSharing(index)}>Share recipe</div>
+                        {activeSharingIndex === index && (
+                            <div className="share-buttons">
+                                <FacebookShareButton url={window.location.href}>
+                                    <AiFillFacebook color='blue' size={28} />
+                                </FacebookShareButton>
+                                <WhatsappShareButton url={window.location.href}>
+                                    <AiOutlineWhatsApp color='green' size={28} />
+                                </WhatsappShareButton>
+                            </div>
+                        )}
                         <div className='recipe-ingredient' onClick={() => toggleCalendar(index)}>Plan to Meal</div>
                         {activeCalendarIndex === index && (
                             <div className="calendar-container">
