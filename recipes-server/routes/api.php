@@ -26,15 +26,14 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:api'], function () {
 
     Route::post('recipes/comment', [RecipeController::class, 'commentRecipe']);
     Route::post('recipes/{recipeId}/toggle-like', [RecipeController::class, 'toggleLike']);
-    Route::get('recipes/{recipe}/share-url', [RecipeController::class, 'getRecipeShareUrl']);
 
     Route::post('shopping-lists/toggle/{recipeId}', [ShoppingController::class, 'toggleShoppingList']);
     Route::get('shopping-lists', [ShoppingController::class, 'getShoppingList']);
 
     Route::post('calendar/events', [CalendarController::class, 'planMeal']);
+    Route::get('calendar/events', [CalendarController::class, 'getPlannedMeals']);
     Route::post('calendar/events/{eventId}', [CalendarController::class, 'deleteEvent']);
 
-    Route::get('calendar/events', [CalendarController::class, 'getPlannedMeals']);
 
     Route::post("logout", [AuthController::class, "logout"]);
     Route::post("refresh", [AuthController::class, "refresh"]);
