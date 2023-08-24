@@ -4,9 +4,16 @@ import { sendRequest } from '../../core/config/request';
 import { requestMethods } from '../../core/enums/requestMethods';
 
 function CalendarList({ events, fetchData }) {
-    if (!events) {
+
+    console.log(events)
+    
+    if (events === 0) {
         return <p className='note'>No Planned Meals </p>;
     }
+    if (!events) {
+        return <p className='note'>Loading Planned Meals... </p>;
+    }
+    
 
     const handleDelete = async (eventId) => {
         try {

@@ -5,7 +5,10 @@ function FavCards({recipes}) {
     const [activeRecipeIndex, setActiveRecipeIndex] = useState(null);
     
     if (!recipes) {
-        return <p>No Favourite Recipes</p>;
+        return <p className='note'>Loading Favourite Recipes...</p>;
+    }
+    if (recipes.length === 0 ) {
+        return <p className='note'>No Favourite Recipes</p>;
     }
 
     const toggleIngredients = (index) => {

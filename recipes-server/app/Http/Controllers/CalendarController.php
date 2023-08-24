@@ -63,7 +63,7 @@ class CalendarController extends Controller
                 ->get();
 
             if ($plannedMeals->isEmpty()) {
-                return response()->json(['message' => 'No planned meals found for the user.'], 404);
+                return response()->json(['message' => 'No planned meals found for the user.', 'planned_meals' => 0]);
             }
 
             return response()->json(['planned_meals' => $plannedMeals]);

@@ -6,7 +6,7 @@ import { requestMethods } from '../../core/enums/requestMethods';
 
 function Calendar() {
 
-    const [events, setEvents] = useState('');
+    const [events, setEvents] = useState([]);
     
     const fetchData = async () =>{
         try {
@@ -14,7 +14,7 @@ function Calendar() {
                 route: "/user/calendar/events",
                 method: requestMethods.GET,
             });
-            console.log(response.planned_meals)
+            console.log(response)
             setEvents(response.planned_meals)
         } catch (error) {
             console.error('failed:', error);
