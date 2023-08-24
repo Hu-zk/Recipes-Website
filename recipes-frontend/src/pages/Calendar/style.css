@@ -25,16 +25,24 @@ td {
   padding: 8px;
 }
 
+.delete-btn {
+  background-color: rgb(235, 191, 166);
+}
+
+.delete-btn button {
+  border: none;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(255, 0, 0);
+}
+
 tr {
-  /* border: 2px solid #333333; */
   background-color: #dfdfdf;
 }
 
 th {
   background-color: #f2f2f2;
   color: #444;
-}
-
-.list-buttons {
-  background-color: var(--white);
 }
