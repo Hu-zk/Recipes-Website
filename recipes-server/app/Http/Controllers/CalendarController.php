@@ -14,27 +14,27 @@ class CalendarController extends Controller
         try {
             $request->validate([
                 'recipe_id' => 'required|exists:recipes,id',
-                'day_of_week' => 'required|integer|between:1,7',
+                'event_date' => 'required|date',
             ]);
 
             $user = Auth::user();
             $recipeId = $request->recipe_id;
-            $dayOfWeek = $request->day_of_week;
+            $eventDate = $request->event_date;
 
             $existingEvent = CalendarEvent::where([
                 'user_id' => $user->id,
                 'recipe_id' => $recipeId,
-                'day_of_week' => $dayOfWeek,
+                'event_date' => $eventDate,
             ])->first();
 
             if ($existingEvent) {
-                return response()->json(['message' => 'Meal is already planned for this day.'], 400);
+                return response()->json(['message' => 'Meal is already planned for this date.'], 400);
             }
 
             $event = new CalendarEvent([
                 'user_id' => $user->id,
                 'recipe_id' => $recipeId,
-                'day_of_week' => $dayOfWeek,
+                'event_date' => $eventDate,
             ]);
             $event->save();
 
@@ -51,7 +51,6 @@ class CalendarController extends Controller
     public function getPlannedMeals()
     {
         try {
-
             $user = Auth::user();
 
             $plannedMeals = CalendarEvent::where('user_id', $user->id)
